@@ -5,6 +5,7 @@ const webpack = require("webpack-stream");
 const browsersync = require("browser-sync");
 
 const dist = "./dist/";
+// const dist = "/Usefull/MAMP/htdocs/dist/";
 
 gulp.task("copy-html", () => {
   return gulp.src("./src/index.html")
@@ -22,22 +23,22 @@ gulp.task("build-js", () => {
       watch: false,
       devtool: "source-map",
       module: {
-        rules: [
-          {
-            test: /\.m?js$/,
-            exclude: /(node_modules|bower_components)/,
-            use: {
-              loader: 'babel-loader',
-              options: {
-                presets: [['@babel/preset-env', {
+        rules: [{
+          test: /\.m?js$/,
+          exclude: /(node_modules|bower_components)/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                ['@babel/preset-env', {
                   debug: true,
                   corejs: 3,
                   useBuiltIns: "usage"
-                }]]
-              }
+                }]
+              ]
             }
           }
-        ]
+        }]
       }
     }))
     .pipe(gulp.dest(dist))
@@ -72,21 +73,21 @@ gulp.task("build-prod-js", () => {
         filename: 'script.js'
       },
       module: {
-        rules: [
-          {
-            test: /\.m?js$/,
-            exclude: /(node_modules|bower_components)/,
-            use: {
-              loader: 'babel-loader',
-              options: {
-                presets: [['@babel/preset-env', {
+        rules: [{
+          test: /\.m?js$/,
+          exclude: /(node_modules|bower_components)/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                ['@babel/preset-env', {
                   corejs: 3,
                   useBuiltIns: "usage"
-                }]]
-              }
+                }]
+              ]
             }
           }
-        ]
+        }]
       }
     }))
     .pipe(gulp.dest(dist));
